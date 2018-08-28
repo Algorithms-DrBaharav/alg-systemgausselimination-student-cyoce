@@ -38,7 +38,7 @@ public class GaussSolverTest {
     /**
      * Test of Solve method, of class GaussSolver.
      */
-    /*
+    
     @Test
     public void t1_testSolveSimpleCaseI() {
         System.out.print("Solve: Simple case I. 2x2 ");
@@ -116,6 +116,6 @@ public class GaussSolverTest {
         assertNull(result);
         System.out.println(" --> Passed successfuly");
     }
- */
+ 
     
 }

@@ -46,10 +46,51 @@ public class GaussSolver {
      * @return the variables solution. If none, return null.
      */
     public double[] Solve(){
-
         // Your code here!
-
-        return null;
+        
+        printMatrix(bigA, 0, 0, n, n+1, "Before Starting: ");
+        
+        for(int r = 0; r < n; r++){
+            
+            if(bigA[r][r] == 0){
+                int r0 = r;
+                while(r0 < n && bigA[r0][r] == 0) r0++;
+                          
+                if(r0 == n) return null;
+                
+                double[] tmp = bigA[r0];
+                bigA[r0] = bigA[r];
+                bigA[r] = tmp;
+                
+            }
+            
+            double scale = bigA[r][r];
+            
+            for(int c = r; c < n+1; c++){
+                bigA[r][c] /= scale;
+            }
+            
+            for(int rs = r+1; rs < n; rs++){
+                double ratio = bigA[rs][r];
+                for(int c = r; c < n+1; c++){
+                    bigA[rs][c] -= ratio * bigA[r][c];
+                }
+            }
+            
+            printMatrix(bigA, 0, 0, n, n+1, "After iteration " + (r+1) + ":");
+        }
+        
+        double[] x = new double[n];
+        
+        for(int r = n-1; r >= 0; r--){
+            x[r]= bigA[r][n];
+            for(int c= r+1; c<n; c++){
+                x[r] -= bigA[r][c]*x[c];
+            }
+        }
+        
+        
+        return x;
     }
     
         
@@ -60,7 +101,7 @@ public class GaussSolver {
     
     
     // Utility function
-    static public void printMatrix(double[][] X,int minr, int minc, int maxr, int maxc, String str) {
+    static public void printMatrix(double[][] X, int minr, int minc, int maxr, int maxc, String str) {
         int rows=X.length ;
         int cols=X[0].length;
 
